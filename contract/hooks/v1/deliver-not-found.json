@@ -1,0 +1,26 @@
+{
+  "name": "deliver-not-found",
+  "description": "An unknown, malformed or revoked token, a Site that is gone, or any method but POST: one byte-identical 404 that says nothing about which. The plugin shows the connection as failed and asks for a new hook.",
+  "request": {
+    "method": "POST",
+    "path": "/v1/hooks/lrh_chk_unknown_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "urls": []
+    }
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "cache-control": "no-store",
+      "content-type": "application/problem+json"
+    },
+    "body": {
+      "status": 404,
+      "title": "Not Found",
+      "type": "https://langrelay.com/problems/hooks/not-found"
+    }
+  }
+}

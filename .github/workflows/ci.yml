@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  # One job: lint, types, the manifest and its trust contract, the vendored
+  # Change hook contract, the marketplace bundle, no internal reference in
+  # anything public, then the tests through EmDash's own sandbox runner.
+  # CI_RUNS_ON (a JSON label list, a repository variable) picks the runner;
+  # unset, GitHub's Ubuntu.
+  check:
+    runs-on: ${{ fromJSON(vars.CI_RUNS_ON || '"ubuntu-24.04"') }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm validate
+      - run: pnpm build
+      - name: Trust contract (capabilities and hosts)
+        run: pnpm check:manifest
+      - name: Change hook contract (the vendored copy)
+        run: pnpm check:contract
+      - name: Marketplace bundle
+        run: pnpm bundle
+      - name: No internal reference in the repository or the build
+        run: pnpm check:public
+      - run: pnpm test
+      - name: A changeset for every change that ships
+        if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'no-release')
+        run: pnpm changeset status --since=origin/main

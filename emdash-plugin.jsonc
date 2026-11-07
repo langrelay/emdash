@@ -1,0 +1,46 @@
+{
+  "$schema": "./node_modules/@emdash-cms/plugin-cli/schemas/emdash-plugin.schema.json",
+
+  "slug": "langrelay",
+  // LangRelay's own Atmosphere (Bluesky) account, @langrelay.com. A handle
+  // change keeps this DID; moving the plugin to another account needs a
+  // registry transfer.
+  "publisher": "did:plc:dqfzcnruxn4gqgeu5fgeclec",
+
+  "license": "MIT",
+  "author": { "name": "LangRelay", "url": "https://langrelay.com" },
+  "security": { "email": "security@langrelay.com" },
+  "name": "LangRelay: website translation",
+  "description": "Your EmDash site in every language, kept up to date as it changes. Translations go live safely, on search-friendly language URLs.",
+  "keywords": ["translation", "multilingual", "localization", "i18n", "seo"],
+  "repo": "https://github.com/langrelay/emdash",
+
+  // The trust contract: the least the plugin needs to report changes, and
+  // nothing that lets it change a page. `scripts/check-manifest.mjs` fails
+  // CI on any change to it; a change needs a version bump, because installed sites consented
+  // to the old one.
+  // - content:read: an item's status and public URL.
+  // - schema:read: which collections have public pages, to record their
+  //   URLs once after connecting.
+  // - network:request to api.langrelay.com: the Site's Change hook.
+  "capabilities": ["content:read", "schema:read", "network:request"],
+  "allowedHosts": ["api.langrelay.com"],
+  "storage": {},
+
+  "admin": {
+    "pages": [{ "path": "/connection", "label": "LangRelay", "icon": "globe" }],
+    "settingsSchema": {
+      "hook": {
+        "type": "secret",
+        "label": "Change hook URL",
+        "description": "From your Site's Connection page in LangRelay."
+      },
+      "snippet": {
+        "type": "string",
+        "multiline": true,
+        "label": "Script embed snippet",
+        "description": "Added to every page by an npm install only."
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "deliver-rate-limited",
+  "description": "A verified hook past its 60 deliveries a minute, or a store that cannot count (it fails closed): 429 with Retry-After. The caller keeps its changes and sends them again after Retry-After.",
+  "request": {
+    "method": "POST",
+    "path": "/v1/hooks/{{token}}",
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "urls": []
+    }
+  },
+  "response": {
+    "status": 429,
+    "headers": {
+      "cache-control": "no-store",
+      "content-type": "application/problem+json",
+      "retry-after": "{{retryAfter}}"
+    },
+    "body": {
+      "status": 429,
+      "title": "Too Many Requests",
+      "type": "https://langrelay.com/problems/hooks/rate-limited"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "@langrelay/emdash-plugin",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Translate your EmDash site with LangRelay",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@10.34.7",
+  "engines": {
+    "node": ">=24"
+  },
+  "main": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.mts"
+    },
+    "./sandbox": "./dist/plugin.mjs",
+    "./trusted": {
+      "import": "./trusted.mjs",
+      "types": "./trusted.d.mts"
+    }
+  },
+  "files": [
+    "dist",
+    "emdash-plugin.jsonc",
+    "trusted.mjs",
+    "trusted.d.mts"
+  ],
+  "scripts": {
+    "validate": "emdash-plugin validate",
+    "build": "emdash-plugin build",
+    "dev": "emdash-plugin dev",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check --error-on-warnings .",
+    "fix": "biome check --write .",
+    "test": "emdash-plugin validate && vitest run",
+    "check:contract": "node scripts/check-contract.mjs",
+    "check:manifest": "node scripts/check-manifest.mjs",
+    "check:public": "node scripts/check-public.mjs",
+    "bundle": "emdash-plugin bundle",
+    "login": "emdash-plugin login",
+    "publish": "emdash-plugin publish",
+    "release:setup": "emdash-plugin release setup",
+    "changeset": "changeset"
+  },
+  "peerDependencies": {
+    "emdash": ">=1.1.0"
+  },
+  "dependencies": {
+    "@emdash-cms/blocks": "1.4.0",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.6",
+    "@changesets/cli": "3.0.3",
+    "@emdash-cms/plugin-cli": "0.13.5",
+    "@emdash-cms/plugin-test": "0.2.11",
+    "emdash": "1.4.0",
+    "typescript": "5.9.3",
+    "vitest": "4.1.12"
+  }
+}

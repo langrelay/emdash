@@ -1,0 +1,14 @@
+packages:
+  - "."
+
+# A dependency version installs only once it is 3 days old: a hijacked
+# release is usually caught sooner.
+minimumReleaseAge: 4320
+
+strictDepBuilds: true
+dangerouslyAllowAllBuilds: false
+# Only these run install scripts: the plugin test host needs workerd, and
+# EmDash's build needs esbuild.
+onlyBuiltDependencies:
+  - esbuild
+  - workerd

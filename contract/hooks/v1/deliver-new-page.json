@@ -1,0 +1,27 @@
+{
+  "name": "deliver-new-page",
+  "description": "An editor published a page that is not yet one of the Site's Pages: the Site is crawled for it (a delivery never mints a Page itself).",
+  "request": {
+    "method": "POST",
+    "path": "/v1/hooks/{{token}}",
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "urls": ["https://hooks.example.com/blog/brand-new"]
+    }
+  },
+  "response": {
+    "status": 202,
+    "headers": {
+      "cache-control": "no-store",
+      "content-type": "application/json"
+    },
+    "body": {
+      "crawl": true,
+      "ignored": 0,
+      "pages": 0,
+      "siteId": "{{siteId}}"
+    }
+  }
+}

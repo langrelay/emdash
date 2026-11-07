@@ -1,0 +1,36 @@
+{
+  "name": "deliver-removed",
+  "description": "An editor unpublished one page and changed another's slug: each old URL is re-read carrying what the delivery said of it, and the moved page's new URL is read too. A read answered 404, 410 or a permanent redirect retires the Page and proposes its withdrawal at once.",
+  "request": {
+    "method": "POST",
+    "path": "/v1/hooks/{{token}}",
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "removed": [
+        {
+          "url": "https://hooks.example.com/blog/gone"
+        },
+        {
+          "movedTo": "https://hooks.example.com/blog/new-slug",
+          "url": "https://hooks.example.com/blog/old-slug"
+        }
+      ],
+      "urls": []
+    }
+  },
+  "response": {
+    "status": 202,
+    "headers": {
+      "cache-control": "no-store",
+      "content-type": "application/json"
+    },
+    "body": {
+      "crawl": false,
+      "ignored": 0,
+      "pages": 3,
+      "siteId": "{{siteId}}"
+    }
+  }
+}

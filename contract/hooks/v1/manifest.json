@@ -1,0 +1,12 @@
+{
+  "version": "v1",
+  "fixtures": {
+    "deliver-new-page.json": "8b70a14053c295a3e7a04f0f69c90390f43ac659f680dd324ab84a44d5c0d4a5",
+    "deliver-not-found.json": "0138709add80f0eb66fd3ccbde8e44bf0ee37b49b467fac84985df881a9715ff",
+    "deliver-other-body.json": "f198aecec79030b6a3cb6aecc3c4ec09e64cd3b87a25df3849612bc6374b7b43",
+    "deliver-rate-limited.json": "51320d9fab18fc27e55f6b3349e48793e0b9258e8be4493137b589286cf58a00",
+    "deliver-removed.json": "3d037a4a8a2563fa484a361708b1027984e408643b9a18f4e91886906bb004fc",
+    "deliver-test.json": "1a9bf57feec5bcfa74866ade8957f63232aa72f8d78eb04ba19933e2a87e0cd0",
+    "deliver-urls.json": "a63d9378981b42a610a16152ad0f8326233f6553a8675a99efa463ce061c3c6b"
+  }
+}

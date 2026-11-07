@@ -1,0 +1,30 @@
+{
+  "name": "deliver-urls",
+  "description": "An editor published or updated a page that is already one of the Site's Pages: it is re-read at once. The fragment is dropped; another origin's URL is ignored. The answer names the Site, so a caller can link to its Connection in the Dashboard.",
+  "request": {
+    "method": "POST",
+    "path": "/v1/hooks/{{token}}",
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "urls": [
+        "https://hooks.example.com/blog/hello#top",
+        "https://elsewhere.example.com/x"
+      ]
+    }
+  },
+  "response": {
+    "status": 202,
+    "headers": {
+      "cache-control": "no-store",
+      "content-type": "application/json"
+    },
+    "body": {
+      "crawl": false,
+      "ignored": 1,
+      "pages": 1,
+      "siteId": "{{siteId}}"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "deliver-test",
+  "description": "A connection test: an empty list starts nothing, and the 202 proves the token. The EmDash plugin sends it when its token is saved.",
+  "request": {
+    "method": "POST",
+    "path": "/v1/hooks/{{token}}",
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "urls": []
+    }
+  },
+  "response": {
+    "status": 202,
+    "headers": {
+      "cache-control": "no-store",
+      "content-type": "application/json"
+    },
+    "body": {
+      "crawl": false,
+      "ignored": 0,
+      "pages": 0,
+      "siteId": "{{siteId}}"
+    }
+  }
+}

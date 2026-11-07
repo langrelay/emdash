@@ -1,0 +1,30 @@
+{
+  "name": "deliver-other-body",
+  "description": "Any body the contract does not read as a list of URLs (a CMS's own payload, a form post, nothing, a malformed removed list) asks for a crawl of the Site.",
+  "request": {
+    "method": "POST",
+    "path": "/v1/hooks/{{token}}",
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": {
+      "_type": "post",
+      "slug": {
+        "current": "hello"
+      }
+    }
+  },
+  "response": {
+    "status": 202,
+    "headers": {
+      "cache-control": "no-store",
+      "content-type": "application/json"
+    },
+    "body": {
+      "crawl": true,
+      "ignored": 0,
+      "pages": 0,
+      "siteId": "{{siteId}}"
+    }
+  }
+}
